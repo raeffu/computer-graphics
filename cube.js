@@ -23,13 +23,13 @@ function init()
   orbitControls.autoRotate = true;
   orbitControls.enableZoom = true;
 
-  //    4-------7
+  //    7-------6
   //   /|      /|
   //  / |     / |
-  // 5--|----6  |
-  // |  0----|--3
+  // 4--|----5  |
+  // |  3----|--2
   // | /     | /
-  // 1-------2
+  // 0-------1
 
   //camera.lookAt(scene.position);
   var vertices = [];
@@ -45,23 +45,24 @@ function init()
   vertices.push ( new THREE.Vector3 ( 0.0, 1.0, 1.0 ) ); // 7
 
   var faces=[];
-  faces.push ( new THREE.Face3 ( 0, 3, 2 ) );
-  faces.push ( new THREE.Face3 ( 2, 1, 0 ) );
-
-  faces.push ( new THREE.Face3 ( 5, 6, 2 ) );
-  faces.push ( new THREE.Face3 ( 2, 1, 5 ) );
-
-  faces.push ( new THREE.Face3 ( 6, 7, 3 ) );
-  faces.push ( new THREE.Face3 ( 3, 2, 6 ) );
-
-  faces.push ( new THREE.Face3 ( 7, 4, 0 ) );
-  faces.push ( new THREE.Face3 ( 0, 3, 7 ) );
-
-  faces.push ( new THREE.Face3 ( 5, 1, 0 ) );
-  faces.push ( new THREE.Face3 ( 0, 4, 5 ) );
-
-  faces.push ( new THREE.Face3 ( 4, 7, 6 ) );
-  faces.push ( new THREE.Face3 ( 6, 5, 4 ) );
+  // 0-1-5-4
+  faces.push ( new THREE.Face3 ( 0, 1, 5 ) );
+  faces.push ( new THREE.Face3 ( 5, 4, 0 ) );
+  // 6-5-1-2
+  faces.push ( new THREE.Face3 ( 5, 1, 2 ) );
+  faces.push ( new THREE.Face3 ( 6, 5, 2 ) );
+  // 7-4-5-6
+  faces.push ( new THREE.Face3 ( 7, 4, 5 ) );
+  faces.push ( new THREE.Face3 ( 6, 7, 5 ) );
+  // 0-1-2-3
+  faces.push ( new THREE.Face3 ( 3, 1, 0 ) );
+  faces.push ( new THREE.Face3 ( 2, 1, 3 ) );
+  // 7-6-2-3
+  faces.push ( new THREE.Face3 ( 7, 6, 3 ) );
+  faces.push ( new THREE.Face3 ( 6, 2, 3 ) );
+  // 4-7-3-0
+  faces.push ( new THREE.Face3 ( 4, 7, 3 ) );
+  faces.push ( new THREE.Face3 ( 4, 3, 0 ) );
 
   var cubeGeometry = new THREE.Geometry();
   cubeGeometry.vertices = vertices;
@@ -70,11 +71,15 @@ function init()
   var cubeMaterial = new THREE.MeshBasicMaterial (
     {wireframe: true,
      color: 0xffffff} );
+  var pink = new THREE.MeshBasicMaterial({color: 0xff00ff});
 
 
   var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
+  var cubePink = new THREE.Mesh( cubeGeometry, pink );
+  cubePink.translateZ(2);
 
   scene.add( cube );
+  scene.add( cubePink );
 
   var axes = new THREE.AxisHelper( 1.5 );
   scene.add ( axes );
