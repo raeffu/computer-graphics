@@ -68,10 +68,9 @@ function init()
   cubeGeometry.vertices = vertices;
   cubeGeometry.faces = faces;
 
-  var cubeMaterial = new THREE.MeshBasicMaterial (
-    {wireframe: true,
-     color: 0xffffff} );
-  var pink = new THREE.MeshBasicMaterial({color: 0xff00ff});
+  var cubeMaterial = new THREE.MeshBasicMaterial ({wireframe: true, color: 0xffffff});
+  // var pink = new THREE.MeshBasicMaterial({color: 0x00ff00});
+  var pink = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x009900, shininess: 30, shading: THREE.FlatShading } );
 
 
   var cube = new THREE.Mesh( cubeGeometry, cubeMaterial );
@@ -80,6 +79,11 @@ function init()
 
   scene.add( cube );
   scene.add( cubePink );
+
+  //light
+  var light = new THREE.PointLight( 0xffffff, 1, 100 );
+  light.position.set( 15, 15, 15 );
+  scene.add( light );
 
   var axes = new THREE.AxisHelper( 1.5 );
   scene.add ( axes );
